@@ -1,0 +1,32 @@
+#components-layout-demo-top-side-2 .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl #components-layout-demo-top-side-2 .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+.scrollBar {
+  width: 100%;
+  height: 90%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.scrollBar::-webkit-scrollbar {
+  width: 1px; /* ширина scrollbar */
+}
+.scrollBar::-webkit-scrollbar-track {
+  background: white; /* цвет дорожки */
+}
+.scrollBar::-webkit-scrollbar-thumb {
+  background-color: black; /* цвет плашки */
+  border-radius: 20px; /* закругления плашки */
+}
