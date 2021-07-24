@@ -5,6 +5,7 @@ import { Route, Switch, Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import Users from "./adminComponent/Users";
 import Product from "./adminComponent/Product";
+import BanList from "./adminComponent/BanList";
 const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
 const Admin = () => {
@@ -39,6 +40,7 @@ const Admin = () => {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
+        style={{ minHeight: "100vh" }}
       >
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>
           <Menu.Item key="1">
@@ -79,7 +81,7 @@ const Admin = () => {
             </Menu.Item>
           </SubMenu>
           <Menu.Item key="blackList" icon={<UnorderedListOutlined />}>
-            Черный список
+            <Link to="/admin/blacklist">Черный список</Link>
           </Menu.Item>
           <Menu.Item key="out" icon={<LoginOutlined />} onClick={out}>
             out
@@ -96,6 +98,9 @@ const Admin = () => {
             </Route>
             <Route path="/admin/product/:type">
               <Product array={product} get={getProduct} />
+            </Route>
+            <Route path="/admin/blacklist">
+              <BanList />
             </Route>
           </Switch>
         </Content>

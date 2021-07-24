@@ -18,11 +18,6 @@ const Basket = ({ state, setState }) => {
       </Button>
       <Drawer width={500} title="Корзина" placement="right" closable={false} onClose={onClose} visible={visible}>
         <div className="scrollBar">{list}</div>
-        <div>
-          <Button type="primary" style={{ fontSize: 24, width: "100%", height: "100%", margin: "10px 0" }}>
-            Оформить заказ
-          </Button>
-        </div>
       </Drawer>
     </>
   );

@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import PersonalAccount from "./userComponent/personalAccount";
 import Basket from "./userComponent/basket";
+import Order from "./userComponent/order";
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 const User = () => {
@@ -24,6 +25,19 @@ const User = () => {
   const out = () => {
     axios.post("/api/auth/out").then((res) => setRed(true));
   };
+  const BTNLIST = () => {
+    return (
+      <>
+        <Basket key={1} state={localstorage} setState={setsocalstorage} />,
+        <Order kye={2} state={localstorage} setState={setsocalstorage} />,
+        <PersonalAccount key={3} state={localstorage} setState={setsocalstorage} />,
+        <Button key={4} type="danger" onClick={out}>
+          Выйти
+        </Button>
+        ,
+      </>
+    );
+  };
   const list = product.map((item, i) => <Card item={item} key={i} state={localstorage} setState={setsocalstorage} />);
   return (
     <>
@@ -33,16 +47,9 @@ const User = () => {
         onBack={() => null}
         title="Title"
         subTitle="This is a subtitle"
-        extra={[
-          <Basket key="3" state={localstorage} setState={setsocalstorage} />,
-          <Button key="2">Оформить заказ</Button>,
-          <PersonalAccount key="1" />,
-          <Button key="0" type="danger" onClick={out}>
-            Выйти
-          </Button>,
-          ,
-        ]}
+        extra={<BTNLIST />}
       />
+
       <Row>
         <Col span={3}>
           <Sider width={"100%"} className="site-layout-background">

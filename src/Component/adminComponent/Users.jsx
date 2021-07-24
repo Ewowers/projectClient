@@ -7,26 +7,28 @@ const Users = ({ array, get }) => {
   const { status } = useParams();
   const [user, setUser] = useState({});
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const showModal = (id) => {
     axios.get("/api/auth/user/" + id).then((res) => {
       setUser(res.data);
       setIsModalVisible(true);
     });
   };
-
   const handleOk = () => {
     setIsModalVisible(false);
   };
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
   const deletes = (id) => {
     axios.delete("/api/auth/" + id).then((res) => get(status));
   };
+  const ban = (id) => {
+    axios.post("/api/blacklist/add", { id: id }).then((res) => get(status));
+  };
   const youImportant = 5;
-  let list = array.map((item, i) => {
+  const banFiltr = array.filter((item) => (item.ban ? false : true));
+  let list = banFiltr.map((item, i) => {
+    console.log(item);
     return (
       <Card
         login={item.login}
@@ -36,6 +38,9 @@ const Users = ({ array, get }) => {
         important={item.important}
         status={item.position}
         youImportant={youImportant}
+        ip={item.ip}
+        ban={ban}
+        isBan={item.ban}
         show={showModal}
       />
     );
@@ -49,7 +54,7 @@ const Users = ({ array, get }) => {
     </>
   );
 };
-const Card = ({ show, login, id, deletes, important, status, youImportant }) => {
+const Card = ({ show, login, id, deletes, important, status, youImportant, ip, ban }) => {
   let i = false;
   if (login !== "admin") i = true;
   if (important <= youImportant)
@@ -62,10 +67,15 @@ const Card = ({ show, login, id, deletes, important, status, youImportant }) => 
           <span style={styles.p}>
             status: <strong>{status}</strong>
           </span>
+          <span style={styles.p}>
+            ip: <strong>{ip}</strong>
+          </span>
         </div>
         {i ? (
           <div style={styles.btnList}>
-            <Button type="danger">Бан</Button>
+            <Button type="danger" onClick={() => ban(id)}>
+              Бан
+            </Button>
             <Button type="danger" onClick={() => deletes(id)}>
               Удалить
             </Button>

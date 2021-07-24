@@ -14,6 +14,13 @@ const PersonalAccount = () => {
   const [personal, setPersonal] = useState({});
   const [image, setImage] = useState(personal.image || null);
   const [form] = Form.useForm();
+  const dateFormat = "YYYY/MM/DD";
+  form.setFieldsValue({
+    login: personal.login,
+    email: personal.email,
+    phone: personal.phone,
+    year: moment(personal.year, dateFormat),
+  });
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -27,22 +34,15 @@ const PersonalAccount = () => {
     values.image = image;
     axios.put("/api/auth/personalInfo/" + personal._id, values).then((res) => console.log(res.data));
   };
-  const dateFormat = "YYYY/MM/DD";
-  form.setFieldsValue({
-    login: personal.login,
-    email: personal.email || null,
-    phone: personal.phone || null,
-    year: moment(personal?.year, dateFormat) || null,
-  });
-  // form.setFieldsValue(personal);
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
         Личный кабинет
       </Button>
-      <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <Upload setState={setImage} state={image} avatar={personal.image} />
-        <Form form={form} name="control-hooks" onFinish={onFinish} layout={"vertical"}>
+      <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={false}>
+        <Upload setState={setImage} state={image} avatar={personal.image} form={form} />
+        <Form form={form} name="control-hooks" onFinish={onFinish} layout="vertical">
           <Form.Item name="login" label="Логин">
             <Input />
           </Form.Item>
@@ -53,7 +53,7 @@ const PersonalAccount = () => {
             <Input type="number" />
           </Form.Item>
           <Form.Item name="year" label="Дата рождения">
-            <DatePicker />
+            <DatePicker style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
