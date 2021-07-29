@@ -3,7 +3,6 @@ import { Modal, Button, Row, Col, Form, Input, Radio, Image, InputNumber } from 
 import { DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 const Order = ({ state, setState }) => {
-  console.log(state);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [personal, setPersonal] = useState({});
   const showModal = () => {
@@ -17,7 +16,12 @@ const Order = ({ state, setState }) => {
   };
   const [form] = Form.useForm();
   const onFinish = (values) => {
-    console.log(values);
+    if (values.type) values.type = "Доставка";
+    else values.type = "Самовывоз";
+    values.basket = JSON.parse(localStorage.getItem("basket")).map((item) => {
+      return { id: item._id, que: item.que };
+    });
+    axios.post("/api/order/add", values);
   };
   const [type, setType] = useState(false);
   form.setFieldsValue({

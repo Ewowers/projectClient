@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Menu } from "antd";
-import { UnorderedListOutlined, DropboxOutlined, TeamOutlined, LoginOutlined } from "@ant-design/icons";
+import {
+  UnorderedListOutlined,
+  DropboxOutlined,
+  TeamOutlined,
+  LoginOutlined,
+  ContainerOutlined,
+} from "@ant-design/icons";
 import { Route, Switch, Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import Users from "./adminComponent/Users";
 import Product from "./adminComponent/Product";
 import BanList from "./adminComponent/BanList";
+import Company from "./adminComponent/company";
 const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
 const Admin = () => {
@@ -62,6 +69,9 @@ const Admin = () => {
             <Menu.Item key="user4" onClick={() => getUsers("nouser")}>
               <Link to="/admin/users/nouser">Ожидающие потверждения</Link>
             </Menu.Item>
+            <Menu.Item key="user5" onClick={() => getUsers("ban")}>
+              <Link to="/admin/users/ban">Забанены</Link>
+            </Menu.Item>
           </SubMenu>
           <SubMenu key="sub2" icon={<DropboxOutlined />} title="Товары">
             <Menu.Item key="product" onClick={() => getProduct("all")}>
@@ -83,6 +93,9 @@ const Admin = () => {
           <Menu.Item key="blackList" icon={<UnorderedListOutlined />}>
             <Link to="/admin/blacklist">Черный список</Link>
           </Menu.Item>
+          <Menu.Item key="company" icon={<ContainerOutlined />}>
+            <Link to="/admin/company">Компаний</Link>
+          </Menu.Item>
           <Menu.Item key="out" icon={<LoginOutlined />} onClick={out}>
             out
           </Menu.Item>
@@ -98,6 +111,9 @@ const Admin = () => {
             </Route>
             <Route path="/admin/product/:type">
               <Product array={product} get={getProduct} />
+            </Route>
+            <Route path="/admin/company">
+              <Company />
             </Route>
             <Route path="/admin/blacklist">
               <BanList />
