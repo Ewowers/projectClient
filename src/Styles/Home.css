@@ -1,0 +1,41 @@
+body {
+  background-image: url("../image/back.jpg");
+  background-size: cover;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+.header .contact a {
+  text-align: right;
+  font-size: 24px;
+  display: block;
+}
+
+.slider-container-my-project * {
+  color: #fff;
+}
+
+.slider-container-my-project::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
+  z-index: -1;
+  opacity: 0.5;
+}
+.controller {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 50px;
+}
+
+.controller button {
+  font-size: 24px;
+  color: #fff;
+  background: #000;
+}
